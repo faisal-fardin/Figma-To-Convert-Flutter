@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:untitled/customWidget/customSteper.dart';
 import 'package:untitled/style.dart';
 
@@ -20,6 +23,8 @@ class _ScreenPageState extends State<ScreenPage> {
   bool sat = false;
 
   String gender = '';
+
+  String? localImagePath;
 
   @override
   Widget build(BuildContext context) {
@@ -76,9 +81,15 @@ class _ScreenPageState extends State<ScreenPage> {
                             borderRadius: BorderRadius.circular(10),
                             color: Colors.grey,
                           ),
-                          width: 40,
-                          height: 80,
-                          child: const Icon(Icons.image_search),
+                          width: 60,
+                          height: 100,
+                          child: InkWell(
+                            onTap: (){
+                              _getImage(ImageSource.gallery);
+                            },
+                            child: localImagePath == null ? const Icon(Icons.image_search, size: 50,):
+                            Image.file(File(localImagePath!) , width: 100, height: 100,),
+                          ),
                         ),
                       ),
                     ),
@@ -307,7 +318,13 @@ class _ScreenPageState extends State<ScreenPage> {
                           ),
                           width: 40,
                           height: 80,
-                          child: const Icon(Icons.image_search),
+                          child: InkWell(
+                            onTap: (){
+                              _getImage(ImageSource.gallery);
+                            },
+                            child: localImagePath == null ? const Icon(Icons.image_search, size: 50,):
+                            Image.file(File(localImagePath!) , width: 100, height: 100,),
+                          ),
                         ),
                       ),
                     ),
@@ -344,7 +361,13 @@ class _ScreenPageState extends State<ScreenPage> {
                           ),
                           width: 40,
                           height: 80,
-                          child: const Icon(Icons.image_search),
+                          child: InkWell(
+                            onTap: (){
+                              _getImage(ImageSource.gallery);
+                            },
+                            child: localImagePath == null ? const Icon(Icons.image_search, size: 50,):
+                            Image.file(File(localImagePath!) , width: 100, height: 100,),
+                          ),
                         ),
                       ),
                     ),
@@ -395,5 +418,15 @@ class _ScreenPageState extends State<ScreenPage> {
         ],
       ),
     );
+  }
+
+  void _getImage(ImageSource source) async{
+    final file = await ImagePicker().pickImage(source: source,imageQuality: 50);
+    if(file !=null){
+      setState(() {
+        localImagePath = file.path;
+      });
+    }
+
   }
 }
