@@ -7,6 +7,7 @@ import 'package:untitled/style.dart';
 
 import 'customWidget/Checkbox_item_data.dart';
 import 'customWidget/cardlistitem.dart';
+import 'customWidget/utils/const.dart';
 
 class ScreenPage extends StatefulWidget {
   @override
@@ -25,6 +26,13 @@ class _ScreenPageState extends State<ScreenPage> {
   String gender = '';
 
   String? localImagePath;
+
+  bool value = false;
+
+  final TextEditingController _editingController = TextEditingController();
+  String userPost = '';
+
+  bool user  = false;
 
   @override
   Widget build(BuildContext context) {
@@ -66,6 +74,51 @@ class _ScreenPageState extends State<ScreenPage> {
                     ),
                   )),
               CardLIstItem(
+                iconData: Icons.arrow_circle_right_outlined,
+                title: 'Category',
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+
+                        //categoryItem Add
+                        Expanded(
+                          child: TextFormField(
+                            controller: _editingController,
+                            decoration: appInputStyle(
+                              'Add Category',
+                              IconButton: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: IconButton(
+                                    onPressed: () {
+                                     setState(() {
+                                       userPost = _editingController.text;
+                                     });
+                                    },
+                                    icon: const Icon(
+                                      Icons.add,
+                                      color: Colors.indigo,
+                                      size: 30,
+                                    )),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+
+                     //categoryItem Add
+                     Container(width: 100, child: Text(userPost,style: const TextStyle(fontSize: 30),)),
+
+                  ],
+                ),
+              ),
+              CardLIstItem(
                 iconData: Icons.add,
                 title: 'Name',
                 child: Row(
@@ -84,11 +137,19 @@ class _ScreenPageState extends State<ScreenPage> {
                           width: 60,
                           height: 100,
                           child: InkWell(
-                            onTap: (){
+                            onTap: () {
                               _getImage(ImageSource.gallery);
                             },
-                            child: localImagePath == null ? const Icon(Icons.image_search, size: 50,):
-                            Image.file(File(localImagePath!) , width: 100, height: 100,),
+                            child: localImagePath == null
+                                ? const Icon(
+                              Icons.image_search,
+                              size: 50,
+                            )
+                                : Image.file(
+                              File(localImagePath!),
+                              width: 100,
+                              height: 100,
+                            ),
                           ),
                         ),
                       ),
@@ -243,14 +304,21 @@ class _ScreenPageState extends State<ScreenPage> {
                         });
                       },
                     ),
-                    CheckBoxItemData(
-                      title: 'Saturdays',
-                      daysValue: sat,
-                      onChange: (value) {
-                        setState(() {
-                          sat = value!;
-                        });
-                      },
+                    Stack(
+                      children: [
+                        InkWell(
+                          onTap: () {},
+                          child: CheckBoxItemData(
+                            title: 'Saturdays',
+                            daysValue: sat,
+                            onChange: (value) {
+                              setState(() {
+                                sat = value!;
+                              });
+                            },
+                          ),
+                        ),
+                      ],
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -260,9 +328,9 @@ class _ScreenPageState extends State<ScreenPage> {
                           child: SwitchListTile(
                             title: const Center(
                                 child: Text(
-                              'Advanced Settings',
-                              style: TextStyle(color: Colors.indigo),
-                            )),
+                                  'Advanced Settings',
+                                  style: TextStyle(color: Colors.indigo),
+                                )),
                             value: false,
                             onChanged: (value) {},
                           ),
@@ -319,11 +387,19 @@ class _ScreenPageState extends State<ScreenPage> {
                           width: 40,
                           height: 80,
                           child: InkWell(
-                            onTap: (){
+                            onTap: () {
                               _getImage(ImageSource.gallery);
                             },
-                            child: localImagePath == null ? const Icon(Icons.image_search, size: 50,):
-                            Image.file(File(localImagePath!) , width: 100, height: 100,),
+                            child: localImagePath == null
+                                ? const Icon(
+                              Icons.image_search,
+                              size: 50,
+                            )
+                                : Image.file(
+                              File(localImagePath!),
+                              width: 100,
+                              height: 100,
+                            ),
                           ),
                         ),
                       ),
@@ -362,11 +438,19 @@ class _ScreenPageState extends State<ScreenPage> {
                           width: 40,
                           height: 80,
                           child: InkWell(
-                            onTap: (){
+                            onTap: () {
                               _getImage(ImageSource.gallery);
                             },
-                            child: localImagePath == null ? const Icon(Icons.image_search, size: 50,):
-                            Image.file(File(localImagePath!) , width: 100, height: 100,),
+                            child: localImagePath == null
+                                ? const Icon(
+                              Icons.image_search,
+                              size: 50,
+                            )
+                                : Image.file(
+                              File(localImagePath!),
+                              width: 100,
+                              height: 100,
+                            ),
                           ),
                         ),
                       ),
@@ -402,13 +486,17 @@ class _ScreenPageState extends State<ScreenPage> {
                   child: Text('Save as draft'),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 30.0 ,vertical: 10),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 30.0, vertical: 10),
                   child: SizedBox(
                     width: 100,
                     child: ElevatedButton(
                       style: buttonStyle(),
                       onPressed: () {},
-                      child: const Text('Continue', style: TextStyle(color: Colors.white),),
+                      child: const Text(
+                        'Continue',
+                        style: TextStyle(color: Colors.white),
+                      ),
                     ),
                   ),
                 ),
@@ -420,13 +508,14 @@ class _ScreenPageState extends State<ScreenPage> {
     );
   }
 
-  void _getImage(ImageSource source) async{
-    final file = await ImagePicker().pickImage(source: source,imageQuality: 50);
-    if(file !=null){
+  void _getImage(ImageSource source) async {
+    final file =
+    await ImagePicker().pickImage(source: source, imageQuality: 50);
+    if (file != null) {
       setState(() {
         localImagePath = file.path;
       });
     }
-
   }
+
 }

@@ -30,3 +30,19 @@ ButtonStyle buttonStyle() {
     elevation: 4,
   );
 }
+
+
+InputDecoration appInputStyle(label, {IconButton}){
+  return InputDecoration(
+      contentPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+      fillColor: Colors.white,
+      filled: true,
+      border: const OutlineInputBorder(
+        borderSide: BorderSide.none,
+      ),
+      hintText: label,
+      suffixIcon: IconButton,
+      focusedBorder: const OutlineInputBorder(
+        borderSide: BorderSide(color: Colors.indigo),
+      ));
+}
