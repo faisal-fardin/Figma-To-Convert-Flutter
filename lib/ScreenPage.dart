@@ -2,6 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:multi_select_flutter/bottom_sheet/multi_select_bottom_sheet_field.dart';
+import 'package:multi_select_flutter/chip_display/multi_select_chip_display.dart';
+import 'package:multi_select_flutter/util/multi_select_item.dart';
+import 'package:multi_select_flutter/util/multi_select_list_type.dart';
 import 'package:untitled/customWidget/customSteper.dart';
 import 'package:untitled/style.dart';
 
@@ -9,12 +13,44 @@ import 'customWidget/Checkbox_item_data.dart';
 import 'customWidget/cardlistitem.dart';
 import 'customWidget/utils/const.dart';
 
+
+class Animal {
+  final int id;
+  final String name;
+
+  Animal({
+    required this.id,
+    required this.name,
+  });
+}
+
+
 class ScreenPage extends StatefulWidget {
   @override
   State<ScreenPage> createState() => _ScreenPageState();
 }
 
 class _ScreenPageState extends State<ScreenPage> {
+  static final List<Animal> _animals = [
+  Animal(id: 1, name: "Lion"),
+  Animal(id: 2, name: "Flamingo"),
+  Animal(id: 3, name: "Hippo"),
+  Animal(id: 4, name: "Horse"),
+  Animal(id: 5, name: "Tiger"),
+  Animal(id: 6, name: "Penguin"),
+  Animal(id: 7, name: "Spider"),
+  Animal(id: 8, name: "Snake"),
+  Animal(id: 9, name: "Bear"),
+  Animal(id: 10, name: "Beaver"),
+];
+
+  var  items = _animals
+      .map((animal) => MultiSelectItem<Animal>(animal, animal.name))
+      .toList();
+
+  List<Animal> _selectedAnimals2 = [];
+
+
   bool sun = false;
   bool mon = false;
   bool tues = false;
@@ -73,6 +109,9 @@ class _ScreenPageState extends State<ScreenPage> {
                       ],
                     ),
                   )),
+
+
+              //categoryItem Add
               CardLIstItem(
                 iconData: Icons.arrow_circle_right_outlined,
                 title: 'Category',
@@ -81,40 +120,33 @@ class _ScreenPageState extends State<ScreenPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
+                    MultiSelectBottomSheetField(
+                      initialChildSize: 0.4,
+                      listType: MultiSelectListType.CHIP,
+                      searchable: true,
+                      validator: (values) {
+                        if (values == null || values.isEmpty) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text('Processing Data')));
+                        }
+                        return null;
+                      },
+                      buttonText: const Text("Favorite Animals"),
+                      title: const Text("Animals"),
+                      items: items,
+                      onConfirm: (values) {
+                        _selectedAnimals2 = _animals;
+                      },
 
-                        //categoryItem Add
-                        Expanded(
-                          child: TextFormField(
-                            controller: _editingController,
-                            decoration: appInputStyle(
-                              'Add Category',
-                              IconButton: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: IconButton(
-                                    onPressed: () {
-                                     setState(() {
-                                       userPost = _editingController.text;
-                                     });
-                                    },
-                                    icon: const Icon(
-                                      Icons.add,
-                                      color: Colors.indigo,
-                                      size: 30,
-                                    )),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
+                      chipDisplay: MultiSelectChipDisplay(
+                        onTap: (_animals) {
+                          setState(() {
+
+                            ElevatedButton(onPressed: (){}, child: const Text('hiiii'));
+                          });
+                        },
+                      ),
                     ),
-
-                     //categoryItem Add
-                     Container(width: 100, child: Text(userPost,style: const TextStyle(fontSize: 30),)),
-
                   ],
                 ),
               ),
