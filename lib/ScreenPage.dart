@@ -2,17 +2,15 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:multi_select_flutter/bottom_sheet/multi_select_bottom_sheet_field.dart';
-import 'package:multi_select_flutter/chip_display/multi_select_chip_display.dart';
 import 'package:multi_select_flutter/dialog/multi_select_dialog_field.dart';
 import 'package:multi_select_flutter/util/multi_select_item.dart';
-import 'package:multi_select_flutter/util/multi_select_list_type.dart';
+
 import 'package:untitled/customWidget/customSteper.dart';
 import 'package:untitled/style.dart';
 
 import 'customWidget/Checkbox_item_data.dart';
 import 'customWidget/cardlistitem.dart';
-import 'customWidget/utils/const.dart';
+
 
 
 class Animal {
@@ -27,6 +25,10 @@ class Animal {
 
 
 class ScreenPage extends StatefulWidget {
+
+  TimeOfDay? startTime, endTime;
+  ScreenPage( {this.startTime, this.endTime});
+
   @override
   State<ScreenPage> createState() => _ScreenPageState();
 }
@@ -51,7 +53,6 @@ class _ScreenPageState extends State<ScreenPage> {
 
   List<Animal> _selectedAnimals2 = [];
 
-
   bool sun = false;
   bool mon = false;
   bool tues = false;
@@ -61,15 +62,15 @@ class _ScreenPageState extends State<ScreenPage> {
   bool sat = false;
 
   String gender = '';
-
   String? localImagePath;
-
   bool value = false;
 
   final TextEditingController _editingController = TextEditingController();
   String userPost = '';
 
   bool user  = false;
+
+  bool timePicker = true;
 
   @override
   Widget build(BuildContext context) {
@@ -332,7 +333,8 @@ class _ScreenPageState extends State<ScreenPage> {
                           wed = value!;
                         });
                       },
-                    ),
+                    ) ,
+                    Text('${widget.startTime?.format(context).toString()} : ${widget.endTime?.format(context).toString()}') ,
                     CheckBoxItemData(
                       title: 'Thursdays',
                       daysValue: thurs,

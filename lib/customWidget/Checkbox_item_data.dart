@@ -31,6 +31,9 @@ class _CheckBoxItemDataState extends State<CheckBoxItemData> {
         children: [
           Expanded(
             child: ListTile(
+              onTap: (){
+                print(2324);
+              },
               title:  Text(widget.title),
               leading: Expanded(
                 child: Checkbox(
@@ -40,12 +43,9 @@ class _CheckBoxItemDataState extends State<CheckBoxItemData> {
                         isChecked = value!;
                       });
                     if (isChecked) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const TimePicker(),
-                        ),
-                      );
+                      showModalBottomSheet(context: context, builder: (context) {
+                        return const TimePicker();
+                      },);
                     }
                   },
                 ),
@@ -57,6 +57,8 @@ class _CheckBoxItemDataState extends State<CheckBoxItemData> {
 
         ],
       ),
+
+
     );
   }
 }

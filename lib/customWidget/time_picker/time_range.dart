@@ -1,6 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:time_range/time_range.dart';
+import 'package:untitled/ScreenPage.dart';
 
 class TimePicker extends StatefulWidget {
   const TimePicker({Key? key}) : super(key: key);
@@ -18,7 +18,10 @@ class _TimePickerState extends State<TimePicker> {
     const TimeOfDay(hour: 14, minute: 00),
     const TimeOfDay(hour: 15, minute: 00),
   );
+
   TimeRangeResult? _timeRange;
+
+  TimeOfDay? startTime, endTime;
 
   @override
   void initState() {
@@ -80,7 +83,11 @@ class _TimePickerState extends State<TimePicker> {
               initialRange: _timeRange,
               timeStep: 30,
               timeBlock: 30,
-              onRangeCompleted: (range) => setState(() => _timeRange = range),
+              onRangeCompleted: (range) => setState(() {
+                _timeRange = range;
+                startTime = _timeRange?.start;
+                endTime = _timeRange?.end;
+              }),
               onFirstTimeSelected: (startHour) {},
             ),
             const SizedBox(height: 30),
@@ -90,17 +97,19 @@ class _TimePickerState extends State<TimePicker> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(
-                      'Selected Range: ${_timeRange!.start.format(context)} - ${_timeRange!.end.format(context)}',
-                      style: const TextStyle(fontSize: 20, color: dark),
-                    ),
+
                     const SizedBox(height: 20),
-                    MaterialButton(
-                      onPressed: () =>
-                          setState(() => _timeRange = _defaultTimeRange),
-                      color: orange,
-                      child: const Text('Default'),
-                    )
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ScreenPage(
+                                  startTime: startTime, endTime: endTime)),
+                        );
+                      },
+                      child: const Text('Save'),
+                    ),
                   ],
                 ),
               ),
