@@ -37,7 +37,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   google_fonts:
   image_picker:
-  multi_select_flutter: ^4.1.3
+  multi_select_flutter:
+  time_range:
 
 
 dev_dependencies:

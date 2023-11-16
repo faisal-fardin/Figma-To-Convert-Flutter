@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:multi_select_flutter/bottom_sheet/multi_select_bottom_sheet_field.dart';
 import 'package:multi_select_flutter/chip_display/multi_select_chip_display.dart';
+import 'package:multi_select_flutter/dialog/multi_select_dialog_field.dart';
 import 'package:multi_select_flutter/util/multi_select_item.dart';
 import 'package:multi_select_flutter/util/multi_select_list_type.dart';
 import 'package:untitled/customWidget/customSteper.dart';
@@ -120,32 +121,42 @@ class _ScreenPageState extends State<ScreenPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    MultiSelectBottomSheetField(
-                      initialChildSize: 0.4,
-                      listType: MultiSelectListType.CHIP,
+                    MultiSelectDialogField(
+                      items: items,
+                      
+                      title: const Text("Category"),
                       searchable: true,
+                      selectedColor: Colors.blue,
+                      decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.all(Radius.circular(10)),
+                        border: Border.all(
+                          color: Colors.grey,
+                          width: 1,
+                        ),
+                      ),
                       validator: (values) {
                         if (values == null || values.isEmpty) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('Processing Data')));
+                          return "Required";
+                        }
+                      },
+                      buttonIcon: const Icon(
+                        Icons.add,
+                        color: Colors.blue,
+                      ),
+                      buttonText: Text(
+                        "Favorite Animals",
+                        style: TextStyle(
+                          color: Colors.blue[800],
+                          fontSize: 16,
+                        ),
+                      ),
+
+                      onConfirm: (results) {
+                        if(results!.length < 5){
+
                         }
                         return null;
                       },
-                      buttonText: const Text("Favorite Animals"),
-                      title: const Text("Animals"),
-                      items: items,
-                      onConfirm: (values) {
-                        _selectedAnimals2 = _animals;
-                      },
-
-                      chipDisplay: MultiSelectChipDisplay(
-                        onTap: (_animals) {
-                          setState(() {
-
-                            ElevatedButton(onPressed: (){}, child: const Text('hiiii'));
-                          });
-                        },
-                      ),
                     ),
                   ],
                 ),
@@ -275,6 +286,10 @@ class _ScreenPageState extends State<ScreenPage> {
                   ],
                 ),
               ),
+
+
+              //Booking Slots  Add
+
               CardLIstItem(
                 iconData: Icons.calendar_month_rounded,
                 title: 'Booking Slots',
@@ -336,21 +351,14 @@ class _ScreenPageState extends State<ScreenPage> {
                         });
                       },
                     ),
-                    Stack(
-                      children: [
-                        InkWell(
-                          onTap: () {},
-                          child: CheckBoxItemData(
-                            title: 'Saturdays',
-                            daysValue: sat,
-                            onChange: (value) {
-                              setState(() {
-                                sat = value!;
-                              });
-                            },
-                          ),
-                        ),
-                      ],
+                    CheckBoxItemData(
+                      title: 'Saturdays',
+                      daysValue: sat,
+                      onChange: (value) {
+                        setState(() {
+                          sat = value!;
+                        });
+                      },
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:untitled/customWidget/time_picker/time_range.dart';
 
-class CheckBoxItemData extends StatelessWidget {
+class CheckBoxItemData extends StatefulWidget {
   CheckBoxItemData(
       {super.key,
       required this.title,
@@ -11,9 +12,16 @@ class CheckBoxItemData extends StatelessWidget {
   final bool daysValue;
   final ValueChanged onChange;
 
+  @override
+  State<CheckBoxItemData> createState() => _CheckBoxItemDataState();
+}
+
+class _CheckBoxItemDataState extends State<CheckBoxItemData> {
   bool addButton = false;
 
   bool value = false;
+
+  bool isChecked = false;
 
   @override
   Widget build(BuildContext context) {
@@ -22,16 +30,30 @@ class CheckBoxItemData extends StatelessWidget {
       child: Row(
         children: [
           Expanded(
-            flex: 4,
-            child: CheckboxListTile(
-              controlAffinity: ListTileControlAffinity.leading,
-              title: Text(title),
-              value: daysValue,
-              onChanged: onChange,
+            child: ListTile(
+              title:  Text(widget.title),
+              leading: Expanded(
+                child: Checkbox(
+                  value: isChecked,
+                  onChanged: (bool? value) {
+                      setState(() {
+                        isChecked = value!;
+                      });
+                    if (isChecked) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const TimePicker(),
+                        ),
+                      );
+                    }
+                  },
+                ),
+              ),
             ),
           ),
-          IconButton(onPressed: (){}, icon: Icon(Icons.add),),
-          IconButton(onPressed: (){}, icon: Icon(Icons.copy),),
+          IconButton(onPressed: (){}, icon: const Icon(Icons.add),),
+          IconButton(onPressed: (){}, icon: const Icon(Icons.copy),),
 
         ],
       ),
