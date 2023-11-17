@@ -72,6 +72,10 @@ class _ScreenPageState extends State<ScreenPage> {
 
   bool timePicker = true;
 
+
+  final _privacyList = ['Public', 'Private', 'General'];
+  String? privacy;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -253,6 +257,9 @@ class _ScreenPageState extends State<ScreenPage> {
                   ],
                 ),
               ),
+
+              //privacy addd
+
               CardLIstItem(
                 iconData: Icons.lock,
                 title: 'Privacy',
@@ -267,20 +274,41 @@ class _ScreenPageState extends State<ScreenPage> {
                         border: Border.all(width: 2, color: Colors.blue),
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      width: 130,
+                      width: 150,
                       height: 40,
-                      child: const Row(
+                      child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("Public"),
-                          SizedBox(
-                            width: 10,
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: DropdownButtonHideUnderline(
+                                child: DropdownButton<String>(
+                                  icon: const Icon(Icons.arrow_drop_down_circle_rounded),
+                                  iconEnabledColor: Colors.indigo,
+                                  iconSize: 20,
+                                  focusColor: Colors.white,
+                                  value: privacy,
+                                  elevation:0,
+                                  hint: const Text('Select Privacy'),
+                                  isExpanded: true,
+                                  items: _privacyList
+                                      .map((e) => DropdownMenuItem<String>(
+                                    value: e,
+                                    child: Text(e),
+                                  ),
+                                  )
+                                      .toList(),
+                                  onChanged: (value) {
+                                    setState(() {
+                                      privacy = value;
+                                    });
+                                  },
+                                ),
+                              ),
+                            ),
                           ),
-                          Icon(
-                            Icons.arrow_drop_down_circle_rounded,
-                            color: Colors.indigo,
-                          )
                         ],
                       ),
                     ),
@@ -289,8 +317,8 @@ class _ScreenPageState extends State<ScreenPage> {
               ),
 
 
-              //Booking Slots  Add
 
+              //Booking Slots  Add
               CardLIstItem(
                 iconData: Icons.calendar_month_rounded,
                 title: 'Booking Slots',
