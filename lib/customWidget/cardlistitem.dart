@@ -8,6 +8,9 @@ class CardLIstItem extends StatelessWidget {
     required this.iconData,
     required this.title,
     required this.child,
+
+
+
   });
 
   final IconData iconData;
@@ -40,7 +43,7 @@ class CardLIstItem extends StatelessWidget {
                   children: [
                     Icon(iconData),
                     const SizedBox(
-                      width: 10,
+                      width: 50,
                     ),
                     Text(
                       title,

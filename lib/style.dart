@@ -10,11 +10,19 @@ TextStyle headTextStyle() {
   );
 }
 
-TextStyle subTitel() {
+TextStyle subTitle(){
   return const TextStyle(
+  color: Color(0xFF6B7588),
+  fontSize: 18,
+  fontWeight: FontWeight.w500,
+  );
+}
+
+TextStyle subTitle2() {
+  return TextStyle(
+    color: Colors.black,
     fontSize: 18,
-    fontWeight: FontWeight.w500,
-    color: Colors.grey,
+    fontWeight: FontWeight.w600,
   );
 }
 
