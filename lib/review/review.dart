@@ -138,17 +138,6 @@ class _ReviewScreenState extends State<ReviewScreen> {
                   title: 'Privacy',
                   trailing: 'Public',
                 ),
-                Column(
-                  children: [
-                    const Day_Time(dayName: 'Monday',),
-                    const Day_Time(dayName: 'Tuesdays',),
-                    const Day_Time(dayName: 'Wednesdays',),
-                    const Day_Time(dayName: 'Thursdays',),
-                    const Day_Time(dayName: 'Fridays',),
-                    const Day_Time(dayName: 'Tuesdays',),
-                  ],
-                ),
-
                 const SizedBox(
                   height: 30,
                 ),
@@ -160,64 +149,15 @@ class _ReviewScreenState extends State<ReviewScreen> {
                   title: 'Location',
                   trailing: '',
                 ),
-                const SizedBox(height: 30,),
+                SizedBox(height: 30,),
                 const Inst_Requ(title: 'Instructions',),
-                const SizedBox(height: 30,),
+                SizedBox(height: 30,),
                 const Inst_Requ(title: 'Requirements',),
               ],
             ),
           ),
         ],
       ),
-    );
-  }
-}
-
-class Day_Time extends StatelessWidget {
-  const Day_Time({
-    super.key, required this.dayName,
-  });
-
-  final String dayName;
-  final String startEndTime = '09:00 AM - 10:00 PM';
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Text(
-          dayName,
-          style: subTitle2(),
-        ),
-        const SizedBox(height: 20,),
-        Container(
-          width: 345,
-          height: 43,
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-          decoration: ShapeDecoration(
-            color: const Color(0xFFE3EDFF),
-            shape: RoundedRectangleBorder(
-              side: const BorderSide(width: 1, color: Color(0xFFE3EDFF)),
-              borderRadius: BorderRadius.circular(8),
-            ),
-          ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                startEndTime,
-                style: subTitle2(),
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 30,),
-
-      ],
     );
   }
 }
