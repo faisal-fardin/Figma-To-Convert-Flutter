@@ -16,7 +16,7 @@ class CustomDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 450,
-      height: 70,
+      height: 75,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,

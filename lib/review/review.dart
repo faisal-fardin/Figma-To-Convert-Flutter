@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-
-import '../style.dart';
 import 'custom_widget/Inst_requi.dart';
 import 'custom_widget/item_details.dart';
 
@@ -43,7 +41,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(
-                  height: 40,
+                  height: 20,
                 ),
                 Center(
                   child: Stack(
@@ -149,9 +147,9 @@ class _ReviewScreenState extends State<ReviewScreen> {
                   title: 'Location',
                   trailing: '',
                 ),
-                SizedBox(height: 30,),
+                const SizedBox(height: 30,),
                 const Inst_Requ(title: 'Instructions',),
-                SizedBox(height: 30,),
+                const SizedBox(height: 30,),
                 const Inst_Requ(title: 'Requirements',),
               ],
             ),
