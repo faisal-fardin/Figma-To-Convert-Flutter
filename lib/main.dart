@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:untitled/ScreenPage.dart';
+import 'package:untitled/payment/make_payment.dart';
 import 'package:untitled/review/review.dart';
 
 void main() {
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         textTheme: GoogleFonts.urbanistTextTheme(),
       ),
-      home:  const ReviewScreen(),
+      home:  const MakePayment(),
     );
   }
 }
